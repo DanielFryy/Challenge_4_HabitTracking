@@ -9,13 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                ForEach(0..<10) { i in
+                    NavigationLink(value: i) {
+                        Text("Row #\(i)")
+                    }
+                }
+            }
+            .navigationTitle("My habits")
+            .navigationDestination(for: Int.self) { i in
+                let activity = Activity(id: UUID(), title: "Brush my teeth", description: "Every day I brush my teeth", frecuency: "Monthly")
+                ActivityView(activity: activity)
+            }
         }
-        .padding()
     }
 }
 
